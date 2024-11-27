@@ -1,4 +1,4 @@
-package com.example;
+package io.github.mituba3328.decibelslayer.client;
 
 import net.fabricmc.api.ModInitializer;
 

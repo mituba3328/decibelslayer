@@ -19,8 +19,11 @@
 			"io.github.mituba3328.decibelslayer.ExampleMod"
 		],
 		"client": [
-			"io.github.mituba3328.decibelslayer.ExampleModClient"
-		]
+			"io.github.mituba3328.decibelslayer.DecibelSlayerMod"
+		],
+		"modmenu": [
+        	"io.github.mituba3328.decibelslayer.ModMenuIntegration"
+    	]
 	},
 	"mixins": [
 		"decibelslayer.mixins.json",
