@@ -56,14 +56,4 @@ public class CalibrateSettingScreen extends Screen {
     public void close() {
         this.client.setScreen(this.parent);
     }
-    @Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		super.render(context, mouseX, mouseY, delta);
-
-		// Minecraft doesn't have a "label" widget, so we'll have to draw our own text.
-		// We'll subtract the font height from the Y position to make the text appear above the button.
-		// Subtracting an extra 10 pixels will give the text some padding.
-		// textRenderer, text, x, y, color, hasShadow
-		context.drawText(this.textRenderer, "\"静かな状態を計測\"で静かな状態を3秒間計測します.\n\"うるさい状態を計測\"でうるさい状態を3秒間計測します.", this.width / 2, this.height / 6 - this.textRenderer.fontHeight + 200, 0xFFFFFFFF, true);
-	}
 }

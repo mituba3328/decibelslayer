@@ -9,7 +9,6 @@ import net.minecraft.text.Text;
 public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        // 設定画面を返す
         return parent -> {
             return new ModSettingsScreen(Text.of("マイク設定"), parent);
         };

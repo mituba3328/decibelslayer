@@ -2,14 +2,14 @@
 	"schemaVersion": 1,
 	"id": "decibelslayer",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "DecibelSlayerMod",
+	"description": "マイクの音量でいろいろなギミックが起きる",
 	"authors": [
-		"Me!"
+		"mituba3328"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/mituba3328/decibelslayer",
+		"sources": "https://github.com/mituba3328/decibelslayer"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/decibelslayer/icon.png",

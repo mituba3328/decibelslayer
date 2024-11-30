@@ -55,8 +55,8 @@ public class VoiceVolumeBarMod {
 
         // ワールド切断時の処理
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            stopMonitoringThread(); // スレッドの停止
-            SoundLevelDetector.shutdown(); // マイクリソースの解放
+            stopMonitoringThread();
+            SoundLevelDetector.shutdown();
         });
     }
 
@@ -65,7 +65,6 @@ public class VoiceVolumeBarMod {
         AudioFormat format = new AudioFormat(44100, 16, 1, true, true);
         SoundLevelDetector.initialize(customInfo);
 
-        // 初期化完了後に音量取得スレッドを開始
         if (SoundLevelDetector.isInitialized()) {
             isRunning = true;
             monitoringThread = new Thread(() -> {
@@ -77,7 +76,7 @@ public class VoiceVolumeBarMod {
                         e.printStackTrace();
                     }
                     try {
-                        Thread.sleep(100); // 100msごとに更新
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         System.out.println("Thread interrupted: " + e.getMessage());
                     }
@@ -103,17 +102,17 @@ public class VoiceVolumeBarMod {
 
         // ワールド切断時の処理
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            stopMonitoringThread(); // スレッドの停止
-            SoundLevelDetector.shutdown(); // マイクリソースの解放
+            stopMonitoringThread();
+            SoundLevelDetector.shutdown();
         });
     }
 
     public static void stopMonitoringThread() {
         if (monitoringThread != null && monitoringThread.isAlive()) {
-            isRunning = false; // スレッドを停止
+            isRunning = false;
             SoundLevelDetector.shutdown();
             try {
-                monitoringThread.join(); // スレッド終了を待機
+                monitoringThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -125,27 +124,27 @@ public class VoiceVolumeBarMod {
         int screenWidth = client.getWindow().getScaledWidth();
         int screenHeight = client.getWindow().getScaledHeight();
     
-        int barWidth = screenWidth - 40; // 横幅を画面全体から少しマージンを残す
-        int barHeight = 5; // 高さを薄く
-        int x = 20; // 左端からのマージン
-        int y = screenHeight - 35; // 経験値バーの上に配置
+        int barWidth = screenWidth - 40;
+        int barHeight = 5;
+        int x = 20;
+        int y = screenHeight - 35;
     
-        int filledWidth = (int) (barWidth * volume / 150); // 音量に応じた長さ
+        float normalizedVolume = Math.min(volume / 100.0f, 1.0f);
     
-        // 音量に応じた色
-        int color;
-        if (volume > 0.75f) {
-            color = 0xFFFF0000; // 赤
-        } else if (volume > 0.5f) {
-            color = 0xFFFFFF00; // 黄色
-        } else {
-            color = 0xFF00FF00; // 緑
-        }
+        int filledWidth = (int) (barWidth * normalizedVolume);
+
+        int color = getVolumeColor(normalizedVolume);
+
+        context.fill(x, y, x + barWidth, y + barHeight, 0xFF555555);
     
-        // 背景バー
-        context.fill(x, y, x + barWidth, y + barHeight, 0xFF555555); // 灰色
-    
-        // 音量を示すバー
         context.fill(x, y, x + filledWidth, y + barHeight, color);
+    }
+
+    private static int getVolumeColor(float volume) {
+        int red = (int) (255 * volume);
+        int green = (int) (255 * (1 - volume));
+        int blue = 0;
+    
+        return (0xFF << 24) | (red << 16) | (green << 8) | blue;
     }
 }
